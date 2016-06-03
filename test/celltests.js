@@ -36,5 +36,13 @@ describe('Game of Life', () => {
       var aliveCell = cell(true);
       assert.equal('alive', aliveCell.nextGenerationState([0,1,1,0,0,0,0,1]).currentState);
     });
+    it('Overcrowding', () => {
+      var aliveCell = cell(true);
+      assert.equal('dead', aliveCell.nextGenerationState([1,1,0,0,1,0,0,1]).currentState);
+    });
+    it('Underpopulation', () => {
+      var aliveCell = cell(true);
+      assert.equal('dead', aliveCell.nextGenerationState([0,0,0,0,0,0,0,1]).currentState);
+    });
   });
 });
