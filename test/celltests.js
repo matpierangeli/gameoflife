@@ -25,4 +25,16 @@ describe('Game of Life', () => {
       assert.equal('dead', aliveCell.nextGenerationState([0,1,1,0,0,1,1,0]).currentState);
     });
   });
+
+
+  describe('Alive cell next generation', () => {
+    it('Remains live with two neighbours', () => {
+      var aliveCell = cell(true);
+      assert.equal('alive', aliveCell.nextGenerationState([0,1,1,0,0,0,0,0]).currentState);
+    });
+    it('Remains live with three neighbours', () => {
+      var aliveCell = cell(true);
+      assert.equal('alive', aliveCell.nextGenerationState([0,1,1,0,0,0,0,1]).currentState);
+    });
+  });
 });
