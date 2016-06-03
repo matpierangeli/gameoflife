@@ -26,7 +26,6 @@ describe('Game of Life', () => {
     });
   });
 
-
   describe('Alive cell next generation', () => {
     it('Remains live with two neighbours', () => {
       var aliveCell = cell(true);
