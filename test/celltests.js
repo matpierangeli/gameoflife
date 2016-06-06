@@ -4,44 +4,114 @@ var cell = require('../lib/cell.js');
 describe('Game of Life', () => {
   describe('Cell creation', () => {
     it('alive cell', () => {
-      assert.equal('alive', cell.createAliveCell().currentState);
+      assert.equal(cell.ALIVE, cell.createAliveCell().currentState);
     });
     it('dead cell', () => {
-      assert.equal('dead', cell.createDeadCell().currentState);
+      assert.equal(cell.DEAD, cell.createDeadCell().currentState);
     });
   });
 
   describe('Dead cell next generation', () => {
     it('Reborn', () => {
       var deadCell = cell.createDeadCell();
-      assert.equal('alive', deadCell.nextGenerationState([0,1,1,0,0,0,1,0]).currentState);
+      var neighbours = [
+        cell.createAliveCell(),
+        cell.createAliveCell(),
+        cell.createAliveCell(),
+        cell.createDeadCell(),
+        cell.createDeadCell(),
+        cell.createDeadCell(),
+        cell.createDeadCell(),
+        cell.createDeadCell()
+      ]
+      assert.equal(cell.ALIVE, deadCell.nextGenerationState(neighbours).currentState);
     });
     it('Remains dead', () => {
       var deadCell = cell.createDeadCell();
-      assert.equal('dead', deadCell.nextGenerationState([0,0,0,0,0,0,0,0]).currentState);
+      var neighbours = [
+        cell.createDeadCell(),
+        cell.createDeadCell(),
+        cell.createDeadCell(),
+        cell.createDeadCell(),
+        cell.createDeadCell(),
+        cell.createDeadCell(),
+        cell.createDeadCell(),
+        cell.createDeadCell()
+      ]
+      assert.equal(cell.DEAD, deadCell.nextGenerationState(neighbours).currentState);
     });
     it('Remains dead with too many alive around', () => {
       var deadCell = cell.createDeadCell();
-      assert.equal('dead', deadCell.nextGenerationState([0,1,1,0,0,1,1,0]).currentState);
+      var neighbours = [
+        cell.createAliveCell(),
+        cell.createAliveCell(),
+        cell.createAliveCell(),
+        cell.createAliveCell(),
+        cell.createDeadCell(),
+        cell.createDeadCell(),
+        cell.createDeadCell(),
+        cell.createDeadCell()
+      ]
+      assert.equal(cell.DEAD, deadCell.nextGenerationState(neighbours).currentState);
     });
   });
 
   describe('Alive cell next generation', () => {
     it('Remains live with two neighbours', () => {
       var aliveCell = cell.createAliveCell();
-      assert.equal('alive', aliveCell.nextGenerationState([0,1,1,0,0,0,0,0]).currentState);
+      var neighbours = [
+        cell.createAliveCell(),
+        cell.createAliveCell(),
+        cell.createDeadCell(),
+        cell.createDeadCell(),
+        cell.createDeadCell(),
+        cell.createDeadCell(),
+        cell.createDeadCell(),
+        cell.createDeadCell()
+      ]
+      assert.equal(cell.ALIVE, aliveCell.nextGenerationState(neighbours).currentState);
     });
     it('Remains live with three neighbours', () => {
       var aliveCell = cell.createAliveCell();
-      assert.equal('alive', aliveCell.nextGenerationState([0,1,1,0,0,0,0,1]).currentState);
+      var neighbours = [
+        cell.createAliveCell(),
+        cell.createAliveCell(),
+        cell.createAliveCell(),
+        cell.createDeadCell(),
+        cell.createDeadCell(),
+        cell.createDeadCell(),
+        cell.createDeadCell(),
+        cell.createDeadCell()
+      ]
+      assert.equal(cell.ALIVE, aliveCell.nextGenerationState(neighbours).currentState);
     });
     it('Overcrowding', () => {
       var aliveCell = cell.createAliveCell();
-      assert.equal('dead', aliveCell.nextGenerationState([1,1,0,0,1,0,0,1]).currentState);
+      var neighbours = [
+        cell.createAliveCell(),
+        cell.createAliveCell(),
+        cell.createAliveCell(),
+        cell.createAliveCell(),
+        cell.createDeadCell(),
+        cell.createDeadCell(),
+        cell.createDeadCell(),
+        cell.createDeadCell()
+      ]
+      assert.equal(cell.DEAD, aliveCell.nextGenerationState(neighbours).currentState);
     });
     it('Underpopulation', () => {
       var aliveCell = cell.createAliveCell();
-      assert.equal('dead', aliveCell.nextGenerationState([0,0,0,0,0,0,0,1]).currentState);
+      var neighbours = [
+        cell.createAliveCell(),
+        cell.createDeadCell(),
+        cell.createDeadCell(),
+        cell.createDeadCell(),
+        cell.createDeadCell(),
+        cell.createDeadCell(),
+        cell.createDeadCell(),
+        cell.createDeadCell()
+      ]
+      assert.equal(cell.DEAD, aliveCell.nextGenerationState(neighbours).currentState);
     });
   });
 });
