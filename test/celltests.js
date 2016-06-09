@@ -1,12 +1,12 @@
 var assert = require('chai').assert;
 var cell = require('../lib/cell.js');
 
-describe('Game of Life', () => {
+describe('Cell', () => {
   describe('Cell creation', () => {
-    it('alive cell', () => {
+    it('Alive cell', () => {
       assert.equal(cell.ALIVE, cell.createAliveCell().currentState);
     });
-    it('dead cell', () => {
+    it('Dead cell', () => {
       assert.equal(cell.DEAD, cell.createDeadCell().currentState);
     });
   });
