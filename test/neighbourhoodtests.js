@@ -1,14 +1,9 @@
 var assert = require('chai').assert;
+var matrixCellComparer = require('../lib/utils.js').matrixCellComparer;
 var neighbourhood = require('../lib/neighbourhood.js');
 var alive = require('../lib/cell.js').createAliveCell();
 var dead = require('../lib/cell.js').createDeadCell();
 var xCell = alive;
-
-var neighbourhoodEquality = (n1, n2) => {
-	return n1.reduce((acc, e, i) => {
-  		return acc && e.currentState===n2[i].currentState;
-  	}, true);
-}
 
 describe('Neighbourhood', () => {
   it('Central position', () => {
@@ -18,7 +13,7 @@ describe('Neighbourhood', () => {
   	var expectedNeighbourhood = [dead, alive, alive, alive, dead, dead, alive, alive];
   	var actualNeighbourhood = neighbourhood(matrix,1,1);
   	
-    assert.equal(true, neighbourhoodEquality(expectedNeighbourhood, actualNeighbourhood));
+    assert.equal(true, matrixCellComparer(expectedNeighbourhood, actualNeighbourhood));
   });
   it('Left-Upper corner', () => {
   	var matrix = [[xCell,alive,alive],
@@ -27,7 +22,7 @@ describe('Neighbourhood', () => {
   	var expectedNeighbourhood = [dead, dead, dead, dead, alive, dead, alive, dead];
   	var actualNeighbourhood = neighbourhood(matrix,0,0);
   	
-    assert.equal(true, neighbourhoodEquality(expectedNeighbourhood, actualNeighbourhood));
+    assert.equal(true, matrixCellComparer(expectedNeighbourhood, actualNeighbourhood));
   });
   it('Center-Upper edge', () => {
   	var matrix = [[dead,xCell,alive],
@@ -36,7 +31,7 @@ describe('Neighbourhood', () => {
   	var expectedNeighbourhood = [dead, dead, dead, dead, alive, alive, dead, dead];
   	var actualNeighbourhood = neighbourhood(matrix,0,1);
 
-    assert.equal(true, neighbourhoodEquality(expectedNeighbourhood, actualNeighbourhood));
+    assert.equal(true, matrixCellComparer(expectedNeighbourhood, actualNeighbourhood));
   });
 
   it('Right-Upper corner', () => {
@@ -46,7 +41,7 @@ describe('Neighbourhood', () => {
   	var expectedNeighbourhood = [dead, dead, dead, alive, dead, dead, dead, dead];
   	var actualNeighbourhood = neighbourhood(matrix,0,2);
 
-    assert.equal(true, neighbourhoodEquality(expectedNeighbourhood, actualNeighbourhood));
+    assert.equal(true, matrixCellComparer(expectedNeighbourhood, actualNeighbourhood));
   });
 
   it('Left-Middle edge', () => {
@@ -56,7 +51,7 @@ describe('Neighbourhood', () => {
   	var expectedNeighbourhood = [dead, dead, alive, dead, dead, dead, dead, alive];
   	var actualNeighbourhood = neighbourhood(matrix,1,0);
   	
-    assert.equal(true, neighbourhoodEquality(expectedNeighbourhood, actualNeighbourhood));
+    assert.equal(true, matrixCellComparer(expectedNeighbourhood, actualNeighbourhood));
   });
 
   it('Right-Middle edge', () => {
@@ -66,7 +61,7 @@ describe('Neighbourhood', () => {
   	var expectedNeighbourhood = [alive, alive, dead, dead, dead, alive, alive, dead];
   	var actualNeighbourhood = neighbourhood(matrix,1,2);
 
-    assert.equal(true, neighbourhoodEquality(expectedNeighbourhood, actualNeighbourhood));
+    assert.equal(true, matrixCellComparer(expectedNeighbourhood, actualNeighbourhood));
   });
 
   it('Left-Lower corner', () => {
@@ -76,7 +71,7 @@ describe('Neighbourhood', () => {
   	var expectedNeighbourhood = [dead, dead, dead, dead, alive, dead, dead, dead];
   	var actualNeighbourhood = neighbourhood(matrix,2,0);
 
-    assert.equal(true, neighbourhoodEquality(expectedNeighbourhood, actualNeighbourhood));
+    assert.equal(true, matrixCellComparer(expectedNeighbourhood, actualNeighbourhood));
   });
 
   it('Center-Lower edge', () => {
@@ -86,7 +81,7 @@ describe('Neighbourhood', () => {
   	var expectedNeighbourhood = [dead, dead, alive, alive, alive, dead, dead, dead];
   	var actualNeighbourhood = neighbourhood(matrix,2,1);
 
-    assert.equal(true, neighbourhoodEquality(expectedNeighbourhood, actualNeighbourhood));
+    assert.equal(true, matrixCellComparer(expectedNeighbourhood, actualNeighbourhood));
   });
 
   it('Right-Lower corner', () => {
@@ -96,6 +91,6 @@ describe('Neighbourhood', () => {
   	var expectedNeighbourhood = [dead, alive, dead, dead, dead, dead, dead, dead];
   	var actualNeighbourhood = neighbourhood(matrix,2,2);
 
-    assert.equal(true, neighbourhoodEquality(expectedNeighbourhood, actualNeighbourhood));
+    assert.equal(true, matrixCellComparer(expectedNeighbourhood, actualNeighbourhood));
   });
 });

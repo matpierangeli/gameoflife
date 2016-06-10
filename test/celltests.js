@@ -32,12 +32,12 @@ describe('Cell', () => {
   });
 
   describe('Alive cell next generation', () => {
-    it('Remains live with two neighbours', () => {
+    it('Remains alive with two neighbours', () => {
       var aliveCell = alive;
       var neighbours = [alive, alive, dead, dead, dead, dead, dead, dead];
       assert.equal(cell.ALIVE, aliveCell.nextGenerationState(neighbours).currentState);
     });
-    it('Remains live with three neighbours', () => {
+    it('Remains alive with three neighbours', () => {
       var aliveCell = alive;
       var neighbours = [alive, alive, alive, dead, dead, dead, dead, dead];
       assert.equal(cell.ALIVE, aliveCell.nextGenerationState(neighbours).currentState);
