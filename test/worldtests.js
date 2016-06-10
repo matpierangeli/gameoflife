@@ -17,4 +17,22 @@ describe('World', () => {
 
     assert.equal(true, matrixCellComparer(matrix, currentWorldMatrix));
   });
+  it('Next world', () => {
+    var matrix =
+      [[alive,alive,dead,dead],
+       [alive,alive,dead,alive],
+       [dead,dead,alive,alive]
+      ];
+    
+    var expectedNextGenerationMatrix =
+      [[alive,alive,alive,dead],
+       [alive,dead,dead,alive],
+       [dead,alive,alive,alive]
+      ];
+
+    var initialWorld = world(matrix);
+    var actualNextGenerationMatrix = initialWorld.nextGeneration().currentMatrix;
+
+    assert.equal(true, matrixCellComparer(expectedNextGenerationMatrix, actualNextGenerationMatrix));
+  });
 });
