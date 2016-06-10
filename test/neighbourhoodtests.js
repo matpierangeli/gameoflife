@@ -1,5 +1,5 @@
 var assert = require('chai').assert;
-var matrixCellComparer = require('../lib/utils.js').matrixCellComparer;
+var matrixCellComparer = require('./utils.js').matrixCellComparer;
 var neighbourhood = require('../lib/neighbourhood.js');
 var alive = require('../lib/cell.js').createAliveCell();
 var dead = require('../lib/cell.js').createDeadCell();
